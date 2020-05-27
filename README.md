@@ -19,7 +19,7 @@ This will download the episodes the specified destination directory. For example
 python3 data_downloader.py --config_file "config/all_episodes.yaml"
 ```
 
-The config files `config/kpam_mugs.yaml` and `config/kpam_shoes.yaml` contain the episodes used for shoes and mugs repsectively in the kPAM paper.
+The config files [`config/kpam_mugs.yaml`](config/kpam_mugs.yaml) and [`config/kpam_shoes.yaml`](config/kpam_shoes.yaml) contain the episodes used for shoes and mugs repsectively in the kPAM paper.
 
 
 ## kPAM Keypoint Annotations
