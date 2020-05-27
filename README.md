@@ -5,6 +5,29 @@ This repo contains instructions on how to download the datasets used in the foll
 - [kPAM](https://sites.google.com/view/kpam)
 
 
+## kPAM Data
+To 
+### Annotations
+Can be downloaded using [this](http://data.csail.mit.edu/rlg_manipulation/kpam_annotations.zip) link.
+
+### Episode Visual Data
+The visual data for kPAM consists of episodes. See the "Downloading Specific Episodes" section for more details. The config files [`config/kpam_mugs.yaml`](config/kpam_mugs.yaml) and [`config/kpam_shoes.yaml`](config/kpam_shoes.yaml) contain the episodes used for shoes and mugs repsectively in the kPAM paper.
+
+
+##### Mugs
+To download the mugs data use
+
+```angular2
+python3 data_downloader.py --config_file "config/kpam_mugs.yaml"
+```
+
+##### Shoes
+To download the shoe data use
+
+```angular2
+python3 data_downloader.py --config_file "config/kpam_shoes.yaml"
+```
+
 ## Downloading Specific Episodes
 
 An episode (also known as a scene) consists of many images for which relative camera poses are known. See [here](https://github.com/RobotLocomotion/pytorch-dense-correspondence/blob/master/doc/data_organization.md) for more information. A list of episodes can be found in [config/all_episode.yaml](config/all_episodes.yaml). Downloading a list of episodes specified in a `yaml` file can be accomplished by running
@@ -19,8 +42,3 @@ This will download the episodes the specified destination directory. For example
 python3 data_downloader.py --config_file "config/all_episodes.yaml"
 ```
 
-The config files [`config/kpam_mugs.yaml`](config/kpam_mugs.yaml) and [`config/kpam_shoes.yaml`](config/kpam_shoes.yaml) contain the episodes used for shoes and mugs repsectively in the kPAM paper.
-
-
-## kPAM Keypoint Annotations
-Can be downloaded using [this](http://data.csail.mit.edu/rlg_manipulation/kpam_annotations.zip) link.
