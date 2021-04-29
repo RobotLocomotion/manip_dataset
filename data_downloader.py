@@ -22,6 +22,9 @@ def download_single_episode(name, # str: episode name
     Downloads a single episode from the webserver to the specified destination_dir
     """
 
+    # create the destination_dir if it doesn't already exist
+    os.makedirs(destination_dir, exist_ok=True)
+
     print("\n\n----- Processing episode %s ---------" % (name))
     if log_download_root is None:
         log_download_root = LOG_DOWNLOAD_ROOT
@@ -30,7 +33,6 @@ def download_single_episode(name, # str: episode name
     dest_folder = os.path.join(destination_dir, name)
 
     try:
-
         if overwrite:
             try:
                 os.remove(dest_file)
