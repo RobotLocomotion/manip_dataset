@@ -4,12 +4,27 @@ import urllib.request
 import shutil
 import yaml
 import time
+import sys
 
 """
 Utility script to assist in downloading a dataset
 """
 
+PUBLIC_URL_ROOT = "http://data.csail.mit.edu/rlg_manipulation"
 LOG_DOWNLOAD_ROOT = "http://data.csail.mit.edu/rlg_manipulation/pdccompressed/logs_proto"
+
+def reporthook(count, block_size, total_size):
+    global start_time
+    if count == 0:
+        start_time = time.time()
+        return
+    duration = time.time() - start_time
+    progress_size = int(count * block_size)
+    speed = int(progress_size / (1024 * duration))
+    percent = int(count * block_size * 100 / total_size)
+    sys.stdout.write("\r...%d%%, %d MB, %d KB/s, %d seconds passed" %
+                    (percent, progress_size / (1024 * 1024), speed, duration))
+    sys.stdout.flush()
 
 def download_single_episode(name, # str: episode name
                             destination_dir, # where to save the episode
@@ -17,6 +32,7 @@ def download_single_episode(name, # str: episode name
                             cleanup=True, # delete .zip file afterward
                             log_download_root=None,
                             overwrite=False,
+                            file_type=None, # tar.gz or zip
                             ):
     """
     Downloads a single episode from the webserver to the specified destination_dir
@@ -29,7 +45,11 @@ def download_single_episode(name, # str: episode name
     if log_download_root is None:
         log_download_root = LOG_DOWNLOAD_ROOT
 
-    dest_file = os.path.join(destination_dir, '%s.tar.gz' % (name))
+    if file_type is None:
+        file_type = "tar.gz"
+
+    # dest_file = os.path.join(destination_dir, '%s.tar.gz' % (name))
+    dest_file = os.path.join(destination_dir, f'{name}.{file_type}')
     dest_folder = os.path.join(destination_dir, name)
 
     try:
@@ -49,7 +69,9 @@ def download_single_episode(name, # str: episode name
             if not os.path.exists(dest_file):
                 print("Downloading episode")
                 start_time = time.time()
-                url = log_download_root + "/%s.tar.gz" % (name)
+                url = f"{log_download_root}/{name}.{file_type}"
+
+                print(f"downloading from url: {url}")
 
                 # Download the file from `url` and save it locally under `file_name`:
                 with urllib.request.urlopen(url) as response, open(dest_file, 'wb') as out_file:
@@ -58,7 +80,7 @@ def download_single_episode(name, # str: episode name
                 print("Downloading took %.2f seconds" % (time.time() - start_time))
 
             else:
-                print("Episode already downloaded" % (name))
+                print(f"Episode {name} already downloaded, skipping")
 
             print("Extracting episode to %s" %(destination_dir))
             shutil.unpack_archive(dest_file, destination_dir)
@@ -121,11 +143,24 @@ if __name__ == "__main__":
     config = yaml.safe_load(open(config_file, 'r'))
 
     for episode_name in config['episodes']:
+        
+        try:
+            log_download_root = config['log_download_root']
+        except KeyError:
+            log_download_root = None
+
+        try:
+            file_type = config['file_type']
+        except KeyError:
+            file_type = None
+
         download_single_episode(episode_name,
                                 destination_dir=args.dest,
                                 extract=True,
                                 cleanup=True,
-                                overwrite=args.overwrite
+                                overwrite=args.overwrite,
+                                log_download_root=log_download_root,
+                                file_type=file_type,
                                 )
 
 

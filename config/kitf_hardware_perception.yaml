@@ -1,0 +1,13 @@
+log_download_root: "http://data.csail.mit.edu/rlg_manipulation/key_dynam/dataset/push_box_string_pull"
+file_type: zip
+episodes:
+  # vision model training episodes
+  - "2020-07-01-20-53-12"
+  - "2020-07-01-20-53-41"
+  - "2020-07-01-20-54-20"
+  - "2020-07-01-20-54-43"
+  - "2020-07-01-20-55-03"
+  - "2020-07-01-20-55-19"
+  - "2020-07-01-20-55-49"
+  - "2020-07-01-20-56-36"
+  - "2020-07-01-20-56-54"
