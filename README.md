@@ -30,13 +30,13 @@ python3 data_downloader.py --config_file "config/kpam_shoes.yaml"
 
 ## Keypoints into the Future
 
-To download the episodes to train the dense-descriptors model us
+The episodes used to train the dense-descriptors model can be downloaded with
 
 ```python
 python3 data_downloader.py --config_file "config/kitf_hardware_perception.yaml"
 ```
 
-To download the hardware episodes for dynamics learning use
+The episodes that are used for dynamics learning can be downloaded with
 
 ```python
 python3 data_downloader.py --config_file "config/kitf_hardware_dynamics.yaml"
