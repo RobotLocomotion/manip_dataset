@@ -6,7 +6,7 @@ This repo contains instructions on how to download the datasets used in the foll
 
 
 ## kPAM Data
-To 
+
 ### Annotations
 Can be downloaded using [this](http://data.csail.mit.edu/rlg_manipulation/kpam_annotations.zip) link.
 
