@@ -5,6 +5,16 @@ This repo contains instructions on how to download the datasets used in the foll
 - [kPAM](https://sites.google.com/view/kpam)
 
 
+## DenseObjectNets
+
+To download the Dense Object Nets data you can use
+
+```angular2
+python3 data_downloader.py --config_file "config/all_episodes.yaml"
+```
+
+Note this downloads a large number of episodes. Create your own config if you only want to download a subset.
+
 ## kPAM Data
 
 ### Annotations
